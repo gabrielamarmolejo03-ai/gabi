@@ -11,8 +11,8 @@
     }
 
     h1 {
-      font-family: 'Georgia', serif; /* 👈 Cambia la tipografía */
-      color: black; /* 👈 Letras negras */
+      font-family: 'Georgia', serif;
+      color: black;
       font-size: 2.5em;
     }
 
@@ -38,7 +38,7 @@
 
     /* Estilo del popup (modal) */
     .modal {
-      display: none; /* oculto por defecto */
+      display: none;
       position: fixed;
       z-index: 1000;
       padding-top: 50px;
@@ -77,9 +77,15 @@
 <body>
   <h1> PARA MI WAWI <3 </h1>
 
-  <!-- 🎵 Música con autoplay y loop -->
-  <audio id="miAudio" autoplay loop controls>
+  <!-- 🎵 Música principal -->
+  <audio id="musica1" autoplay loop controls>
     <source src="mi-musica.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio en HTML5.
+  </audio>
+
+  <!-- 🎵 Segunda canción (inicia oculta y pausada) -->
+  <audio id="musica2" loop controls style="display:none;">
+    <source src="mi-musica2.mp3" type="audio/mpeg">
     Tu navegador no soporta audio en HTML5.
   </audio>
 
@@ -89,14 +95,17 @@
     <img src="imagen21.jpg" alt="Imagen 21">
     <img src="imagen24.jpg" alt="Imagen 24">
     <img src="imagen12.jpg" alt="Imagen 12">
-    <img src="imagen14.jpg" alt="Imagen 14">
+    <img src="imagen01.jpg" alt="Imagen 01">
+    <img src="imagen02.jpg" alt="Imagen 02">
+    <img src="imagen04.jpg" alt="Imagen 04">
+    <img src="imagen03.jpg" alt="Imagen 03">
+    <img src="imagen05.jpg" alt="Imagen 05">
+    <img src="imagen14.jpg" alt="Imagen 14" id="imagen14">
     <img src="imagen15.jpg" alt="Imagen 15">
     <img src="imagen20.jpg" alt="Imagen 20">
     <img src="imagen10.jpg" alt="Imagen 10">
     <img src="DP159158.jpg" alt="DP1569158">
     <img src="DP204808_CRD.jpg" alt="DP204808CRD">
-
-   
   </div>
 
   <!-- Modal -->
@@ -106,32 +115,40 @@
   </div>
 
   <script>
-    // Seleccionamos modal, imagen dentro del modal y botón cerrar
+    // --- Modal ---
     const modal = document.getElementById("miModal");
     const modalImg = document.getElementById("imgGrande");
     const span = document.getElementsByClassName("close")[0];
-
-    // Seleccionar todas las imágenes de la galería
     const imgs = document.querySelectorAll(".imagenes-columna img");
 
     imgs.forEach(img => {
       img.addEventListener("click", () => {
-        modal.style.display = "block"; // mostrar modal
-        modalImg.src = img.src; // poner la imagen grande
+        modal.style.display = "block";
+        modalImg.src = img.src;
       });
     });
 
-    // Cerrar al hacer clic en la X
     span.onclick = function() {
       modal.style.display = "none";
     }
 
-    // También cerrar si se hace clic fuera de la imagen
     modal.onclick = function(e) {
       if (e.target === modal) {
         modal.style.display = "none";
       }
     }
+
+    // --- Música ---
+    const musica1 = document.getElementById("musica1");
+    const musica2 = document.getElementById("musica2");
+    const imagen14 = document.getElementById("imagen14");
+
+    imagen14.addEventListener("click", () => {
+      musica1.pause(); // pausa la primera
+      musica1.currentTime = 0; // reinicia la primera
+      musica2.style.display = "block"; // mostrar controles de la segunda
+      musica2.play(); // iniciar segunda canción
+    });
   </script>
 </body>
 </html>
