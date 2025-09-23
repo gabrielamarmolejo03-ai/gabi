@@ -10,17 +10,11 @@
       background-color: #fff8f8;
     }
 
-    h1 {
-      font-family: 'Georgia', serif;
-      color: black;
-      font-size: 2.5em;
-    }
-
     .imagenes-columna {
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 20px; /* un poco más de espacio entre imágenes */
+      gap: 20px; /* espacio entre imágenes */
       margin-top: 20px;
     }
 
@@ -83,10 +77,20 @@
       margin: 20px auto;
       border-radius: 5px;
     }
+
+    /* Imagen del título */
+    .titulo-imagen {
+      width: 300px;       /* tamaño inicial */
+      max-width: 80%;     /* responsivo */
+      margin: 20px auto;  /* separa y centra */
+      display: block;
+    }
   </style>
 </head>
 <body>
-  <h1> PARA MI WAWI <3 </h1>
+
+  <!-- Imagen como título -->
+  <img src="titulo.jpg" alt="Para mi WAWI" class="titulo-imagen">
 
   <!-- 🎵 Música principal -->
   <audio id="musica1" autoplay loop controls>
@@ -167,6 +171,8 @@
   </script>
 </body>
 </html>
+
+
 
 
 
