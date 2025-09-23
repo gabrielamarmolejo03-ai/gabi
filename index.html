@@ -11,7 +11,9 @@
     }
 
     h1 {
-      color: #d63384;
+      font-family: 'Georgia', serif; /* 👈 Cambia la tipografía */
+      color: black; /* 👈 Letras negras */
+      font-size: 2.5em;
     }
 
     .imagenes-columna {
@@ -75,6 +77,12 @@
 <body>
   <h1> PARA MI WAWI <3 </h1>
 
+  <!-- 🎵 Música con autoplay y loop -->
+  <audio id="miAudio" autoplay loop controls>
+    <source src="mi-musica.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio en HTML5.
+  </audio>
+
   <!-- Imágenes en columna -->
   <div class="imagenes-columna">
     <img src="imagen19.jpg" alt="Imagen 19">
@@ -89,7 +97,6 @@
     <img src="imagen20.jpg" alt="Imagen 20">
     <img src="imagen10.jpg" alt="Imagen 10">
     <img src="imagen13.jpg" alt="Imagen 13">
-
   </div>
 
   <!-- Modal -->
