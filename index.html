@@ -72,6 +72,16 @@
     .close:hover {
       color: #d63384;
     }
+
+    /* Línea divisoria antes de imagen14 */
+    .linea-divisoria {
+      border: none;
+      height: 3px;
+      background-color: #d63384;
+      width: 60%;
+      margin: 20px auto;
+      border-radius: 5px;
+    }
   </style>
 </head>
 <body>
@@ -100,6 +110,10 @@
     <img src="imagen04.jpg" alt="Imagen 04">
     <img src="imagen03.jpg" alt="Imagen 03">
     <img src="imagen05.jpg" alt="Imagen 05">
+
+    <!-- Línea divisoria antes de imagen14 -->
+    <hr class="linea-divisoria">
+
     <img src="imagen14.jpg" alt="Imagen 14" id="imagen14">
     <img src="imagen15.jpg" alt="Imagen 15">
     <img src="imagen20.jpg" alt="Imagen 20">
@@ -144,14 +158,15 @@
     const imagen14 = document.getElementById("imagen14");
 
     imagen14.addEventListener("click", () => {
-      musica1.pause(); // pausa la primera
-      musica1.currentTime = 0; // reinicia la primera
-      musica2.style.display = "block"; // mostrar controles de la segunda
-      musica2.play(); // iniciar segunda canción
+      musica1.pause();
+      musica1.currentTime = 0;
+      musica2.style.display = "block";
+      musica2.play();
     });
   </script>
 </body>
 </html>
+
 
 
 
