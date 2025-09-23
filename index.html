@@ -4,6 +4,37 @@
   <meta charset="UTF-8">
   <title>Mi primera página</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #fff8f8;
+    }
+
+    h1 {
+      color: #d63384;
+    }
+
+    /* Estilo para las imágenes en columna */
+    .imagenes-columna {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px; /* Espacio entre imágenes */
+      margin-top: 20px;
+    }
+
+    .imagenes-columna img {
+      width: 250px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease;
+    }
+
+    .imagenes-columna img:hover {
+      transform: scale(1.05);
+    }
+  </style>
 </head>
 <body>
   <h1> PARA MI WAWI <3 </h1>
@@ -11,23 +42,25 @@
 
   <!-- Audio con autoplay y loop -->
   <audio id="miAudio" controls autoplay loop>
-      <source src="mi-musica.mp3" type="audio/mpeg">
+      <source src="mi-musica2.mp3" type="audio/mpeg">
       Tu navegador no soporta audio.
   </audio>
 
-  <!-- Imágenes existentes -->
+  <!-- Imagen principal -->
   <img src="mi-logo.jpg" alt="Mi logo" style="display: block; margin: 20px auto; border-radius: 10px; width: 300px;">
 
-  <!-- Nuevas imágenes -->
+  <!-- Imágenes en columna -->
   <h2></h2>
-  <div style="text-align: center;">
-    <img src="imagen3.jpg" alt="Imagen 3" style="margin: 10px; width: 200px; border-radius: 10px;">
-    <img src="imagen4.jpg" alt="Imagen 4" style="margin: 10px; width: 200px; border-radius: 10px;">
-    <img src="imagen5.jpg" alt="Imagen 5" style="margin: 10px; width: 200px; border-radius: 10px;">
-    <img src="imagen6.jpg" alt="Imagen 6" style="margin: 10px; width: 200px; border-radius: 10px;">
-    <img src="imagen7.jpg" alt="Imagen 7" style="margin: 10px; width: 200px; border-radius: 10px;">
-    <img src="imagen8.jpg" alt="Imagen 8" style="margin: 10px; width: 200px; border-radius: 10px;">
-    
+  <div class="imagenes-columna">
+    <img src="imagen19.jpg" alt="Imagen 19">
+    <img src="imagen11.jpg" alt="Imagen 11">
+    <img src="imagen12.jpg" alt="Imagen 12">
+    <img src="imagen13.jpg" alt="Imagen 13">
+    <img src="imagen13.jpg" alt="Imagen 15">
+    <img src="imagen14.jpg" alt="Imagen 14">
+    <img src="imagen10.jpg" alt="Imagen 10">
+    <img src="imagen16.jpg" alt="Imagen 16">
+    <img src="imagen17.jpg" alt="Imagen 17">
   </div>
 
   <!-- JavaScript -->
@@ -41,8 +74,9 @@
     });
   </script>
   <script src="script.js"></script>
+  
+  <p style="margin-top: 30px; color: #d63384; font-size: 18px;"> Recuerda lo mucho que te amo todos lo días 💖</p>
 </body>
-Te amo muchisimooo
 </html>
 
 
