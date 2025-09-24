@@ -8,16 +8,26 @@
       font-family: Arial, sans-serif;
       text-align: center;
       background-color: #fff8f8;
-      }
-      
- /* 🎀 Título */
-h1 {
-  font-family: 'Courier New', monospace;
-  color: black;
-  font-size: 3em;
-  margin: 20px 0;
-  text-shadow: 2px 2px 5px rgba(0,0,0,0.15);
-}
+      margin: 0;
+      padding: 0;
+    }
+
+    /* 🎀 Título */
+    h1 {
+      font-family: 'Courier New', monospace;
+      color: black;
+      font-size: 3em;
+      margin: 20px 0;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.15);
+    }
+
+    /* 🎵 Reproductor de música */
+    audio {
+      margin: 15px 0;
+      outline: none;
+      border-radius: 8px;
+      box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+    }
 
     /* 🎨 Mosaico en rejilla */
     .imagenes-columna {
@@ -81,31 +91,32 @@ h1 {
 </head>
 <body>
 
-  <!-- Música oculta -->
-  <audio autoplay loop hidden>
-    <source src="mimusica.mp3" type="audio/mpeg">
-  </audio>
-
-  <!-- Texto como título -->
+  <!-- Título -->
   <h1>PARA MI WAWI</h1>
 
+  <!-- Reproductor de música -->
+  <audio controls loop>
+    <source src="mimusica.mp3" type="audio/mpeg">
+    Tu navegador no soporta audio.
+  </audio>
+
   <!-- Imágenes en mosaico -->
- <div class="imagenes-columna">
-  <img src="imagen1.jpeg" alt="Imagen 1">
-  <img src="imagen2.jpeg" alt="Imagen 2">
-  <img src="imagen3.jpeg" alt="Imagen 3">
-  <img src="imagen4.jpeg" alt="Imagen 4">
-  <img src="imagen5.jpeg" alt="Imagen 5">
-  <img src="imagen6.jpeg" alt="Imagen 6">
-  <img src="imagen8.jpeg" alt="Imagen 8">
-  <img src="imagen9.jpeg" alt="Imagen 9">
-  <img src="imagen10.jpeg" alt="Imagen 10">
-  <img src="imagen11.jpeg" alt="Imagen 11">
-  <img src="imagen12.jpeg" alt="Imagen 12">
-  <img src="imagen13.jpeg" alt="Imagen 13">
-  <img src="imagen14.jpeg" alt="Imagen 14">
-  <img src="imagen15.jpeg" alt="Imagen 15">
-</div>
+  <div class="imagenes-columna">
+    <img src="imagen1.jpeg" alt="Imagen 1">
+    <img src="imagen2.jpeg" alt="Imagen 2">
+    <img src="imagen3.jpeg" alt="Imagen 3">
+    <img src="imagen4.jpeg" alt="Imagen 4">
+    <img src="imagen5.jpeg" alt="Imagen 5">
+    <img src="imagen6.jpeg" alt="Imagen 6">
+    <img src="imagen8.jpeg" alt="Imagen 8">
+    <img src="imagen9.jpeg" alt="Imagen 9">
+    <img src="imagen10.jpeg" alt="Imagen 10">
+    <img src="imagen11.jpeg" alt="Imagen 11">
+    <img src="imagen12.jpeg" alt="Imagen 12">
+    <img src="imagen13.jpeg" alt="Imagen 13">
+    <img src="imagen14.jpeg" alt="Imagen 14">
+    <img src="imagen15.jpeg" alt="Imagen 15">
+  </div>
 
   <!-- Modal -->
   <div id="miModal" class="modal">
@@ -139,26 +150,3 @@ h1 {
   </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
