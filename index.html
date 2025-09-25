@@ -288,10 +288,15 @@
     }
     animate();
 
-    // Lanzar fuegos artificiales cada cierto tiempo
-    setInterval(spawnFirework, 900);
+    // Lanzar fuegos artificiales cada cierto tiempo, pero solo si hay pocos activos
+    function controlledSpawn() {
+      if (fireworks.length < 3) {
+        spawnFirework();
+      }
+    }
+  setInterval(controlledSpawn, 1200); // cada 1.2 segundos
     // Algunos al inicio
-    for (let i = 0; i < 3; i++) spawnFirework();
+    for (let i = 0; i < 2; i++) spawnFirework();
   </script>
 </body>
 </html>
