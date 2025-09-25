@@ -1,153 +1,297 @@
-<!DOCTYPE html>
+  <button id="music-btn" class="controls" type="button" title="Activar música" style="font-size: 1.6em; padding: 10px 16px;">
+    <span aria-label="Música" style="pointer-events:none">&#127925;</span>
+  </button>
+
+
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Galería con Popup</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lo que sea que inspire</title>
   <style>
+    /* --- Reset / layout --- */
+    html, body { height: 100%; margin: 0; }
     body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background-color: #fff8f8;
-      margin: 0;
-      padding: 0;
-    }
-
-    /* 🎀 Título */
-    h1 {
-      font-family: 'Courier New', monospace;
-      color: black;
-      font-size: 3em;
-      margin: 20px 0;
-      text-shadow: 2px 2px 5px rgba(0,0,0,0.15);
-    }
-
-    /* 🎵 Reproductor de música */
-    audio {
-      margin: 15px 0;
-      outline: none;
-      border-radius: 8px;
-      box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
-    }
-
-    /* 🎨 Mosaico en rejilla */
-    .imagenes-columna {
+      /* Cambia la ruta a tu imagen si es necesario */
+      background: url('imagen.png') center / cover no-repeat fixed;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-      gap: 5px;
-      margin: 20px;
+      place-items: center;
+      overflow: hidden; /* evita scroll por animaciones */
     }
 
-    .imagenes-columna img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 8px;
-      box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-
-    .imagenes-columna img:hover {
-      transform: scale(1.05);
-    }
-
-    /* Estilo del popup (modal) */
-    .modal {
-      display: none;
+    /* Capa para mejorar el contraste del texto sobre el cielo */
+    .scrim {
       position: fixed;
-      z-index: 1000;
-      padding-top: 50px;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.8);
+      inset: 0;
+      background: rgba(0,0,0,.06);
+      pointer-events: none;
     }
 
-    .modal-content {
-      margin: auto;
-      display: block;
-      max-width: 90%;
-      border-radius: 10px;
-      box-shadow: 0px 4px 12px rgba(0,0,0,0.5);
+    /* Contenedor del texto */
+    .title {
+      line-height: .95;
+      text-align: center;
+  color: #fe93c3cc;
+      background:
+        url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120"><filter id="n" x="0" y="0"><feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2"/></filter><rect width="120" height="120" fill="white"/><rect width="120" height="120" filter="url(%23n)" opacity="0.18"/></svg>');
+      background-size: cover;
+      background-clip: text;
+      -webkit-background-clip: text;
+      text-shadow: 0 10px 30px rgba(0,0,0,.35), 0 1px 0 rgba(0,0,0,.15);
+      font-weight: 900;
+      letter-spacing: .04em;
+      font-size: clamp(2.2rem, 7.5vw, 9rem);
+      filter: drop-shadow(0 0 6px rgba(0,0,0,.12));
+      will-change: transform;
     }
 
-    /* Botón de cerrar */
-    .close {
-      position: absolute;
-      top: 20px;
-      right: 35px;
-      color: #fff;
-      font-size: 40px;
-      font-weight: bold;
+    /* Cada letra será un span animado */
+    .title span {
+      display: inline-block;
+      transform: translate3d(0,0,0);
+      animation-name: floaty;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      /* duración y desfase se asignan por JS para variar cada letra */
+    }
+
+    /* Saltos de línea controlados con <br> */
+    .title .break { display: block; height: .3em; }
+
+    @keyframes floaty {
+      0%   { transform: translateY(0) rotate(0deg); }
+      50%  { transform: translateY(-10%) rotate(var(--rot, 2deg)); }
+      100% { transform: translateY(0) rotate(0deg); }
+    }
+
+    /* Toques extra: un suave vaivén del bloque completo */
+    .wiggle {
+      animation: wig 8s ease-in-out infinite;
+    }
+    @keyframes wig {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-0.6vh); }
+      100% { transform: translateY(0); }
+    }
+
+    /* Botón opcional para pausar/continuar */
+    .controls {
+      position: fixed; right: 12px; bottom: 12px;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      background: rgba(255,255,255,.4);
+      border-radius: 999px;
+      padding: 8px 12px;
+      font: 600 14px/1 system-ui, sans-serif;
       cursor: pointer;
-    }
-
-    .close:hover {
-      color: #d63384;
+      user-select: none;
     }
   </style>
 </head>
 <body>
-
-  <!-- Título -->
-  <h1>PARA MI WAWI!!!</h1>
-
-  <!-- Reproductor de música -->
-  <audio controls loop>
-    <source src="mimusica.mp3" type="audio/mpeg">
-    Tu navegador no soporta audio.
-  </audio>
-
-  <!-- Imágenes en mosaico -->
-  <div class="imagenes-columna">
-    <img src="imagen1.jpeg" alt="Imagen 1">
-    <img src="imagen2.jpeg" alt="Imagen 2">
-    <img src="imagen3.jpeg" alt="Imagen 3">
-    <img src="imagen4.jpeg" alt="Imagen 4">
-    <img src="imagen5.jpeg" alt="Imagen 5">
-    <img src="imagen6.jpeg" alt="Imagen 6">
-    <img src="imagen8.jpeg" alt="Imagen 8">
-    <img src="imagen9.jpeg" alt="Imagen 9">
-    <img src="imagen10.jpeg" alt="Imagen 10">
-    <img src="imagen11.jpeg" alt="Imagen 11">
-    <img src="imagen12.jpeg" alt="Imagen 12">
-    <img src="imagen13.jpeg" alt="Imagen 13">
-    <img src="imagen14.jpeg" alt="Imagen 14">
-    <img src="imagen15.jpeg" alt="Imagen 15">
+  <div class="scrim" aria-hidden="true"></div>
+  <audio id="bg-music" src="wawi/mimusica.mp3" autoplay loop style="display:none"></audio>
+  <canvas id="fireworks"></canvas>
+  <!-- Pre-cargar las imágenes para animación -->
+  <div id="fw-imgs" style="display:none">
+    <img src="wawi/imagen1.jpeg" />
+    <img src="wawi/imagen2.jpeg" />
+    <img src="wawi/imagen3.jpeg" />
+    <img src="wawi/imagen4.jpeg" />
+    <img src="wawi/imagen5.jpeg" />
+    <img src="wawi/imagen6.jpeg" />
+    <img src="wawi/imagen7.jpeg" />
+    <img src="wawi/imagen8.jpeg" />
+    <img src="wawi/imagen9.jpeg" />
+    <img src="wawi/imagen10.jpeg" />
+    <img src="wawi/imagen11.jpeg" />
+    <img src="wawi/imagen12.jpeg" />
+    <img src="wawi/imagen13.jpeg" />
+    <img src="wawi/imagen14.jpeg" />
+    <img src="wawi/imagen15.jpeg" />
   </div>
 
-  <!-- Modal -->
-  <div id="miModal" class="modal">
-    <span class="close">&times;</span>
-    <img class="modal-content" id="imgGrande">
-  </div>
+  <h1 id="title" class="title wiggle" data-text="Para mi WAWI">
+    <!-- El contenido se construye con JS para separar cada letra -->
+  </h1>
+
 
   <script>
-    // --- Modal ---
-    const modal = document.getElementById("miModal");
-    const modalImg = document.getElementById("imgGrande");
-    const span = document.getElementsByClassName("close")[0];
-    const imgs = document.querySelectorAll(".imagenes-columna img");
+    // Construir spans por letra con pequeñas variaciones
+    const titleEl = document.getElementById('title');
+    const text = titleEl.getAttribute('data-text');
 
-    imgs.forEach(img => {
-      img.addEventListener("click", () => {
-        modal.style.display = "block";
-        modalImg.src = img.src;
+    function build() {
+      titleEl.innerHTML = '';
+      const parts = text.split(' ');
+      parts.forEach((word, idx) => {
+        [...word].forEach((ch, i) => {
+          const span = document.createElement('span');
+          span.textContent = ch;
+          // Duración aleatoria por letra (entre 2 y 5.5s)
+          const dur = (Math.random() * 3.5 + 2).toFixed(2);
+          const delay = (Math.random() * -dur).toFixed(2); // desfasar
+          span.style.animationDuration = dur + 's';
+          span.style.animationDelay = delay + 's';
+          // Pequeña rotación distinta por letra
+          span.style.setProperty('--rot', (Math.random() * 8 - 4).toFixed(2) + 'deg');
+          titleEl.appendChild(span);
+        });
+        if (idx < parts.length - 1) {
+          // Forzar salto de línea parecido al póster
+          titleEl.appendChild(document.createElement('br'));
+        }
       });
-    });
-
-    span.onclick = function() {
-      modal.style.display = "none";
     }
+    build();
 
-    modal.onclick = function(e) {
-      if (e.target === modal) {
-        modal.style.display = "none";
+    // Control de música
+    const musicBtn = document.getElementById('music-btn');
+    const bgMusic = document.getElementById('bg-music');
+    let musicActive = false;
+    musicBtn.addEventListener('click', () => {
+      if (!musicActive) {
+        bgMusic.play();
+        musicActive = true;
+        musicBtn.style.background = 'rgba(255,255,255,.7)';
+      } else {
+        bgMusic.pause();
+        musicActive = false;
+        musicBtn.style.background = '';
+      }
+    });
+  </script>
+  <script>
+    // --- Fuegos artificiales ---
+    const canvas = document.getElementById('fireworks');
+    const ctx = canvas.getContext('2d');
+    let W = window.innerWidth, H = window.innerHeight;
+    function resize() {
+      W = window.innerWidth;
+      H = window.innerHeight;
+      canvas.width = W;
+      canvas.height = H;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    // Estilo para que el canvas esté detrás del texto
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.width = '100vw';
+    canvas.style.height = '100vh';
+    canvas.style.zIndex = '0';
+    canvas.style.pointerEvents = 'none';
+
+
+  // --- Imágenes animadas sincronizadas ---
+  const fwImgs = Array.from(document.querySelectorAll('#fw-imgs img'));
+
+    class Particle {
+      constructor(x, y, color, angle, speed) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        this.angle = angle;
+        this.speed = speed;
+        this.radius = Math.random() * 6 + 4;
+        this.life = 0;
+        this.maxLife = 80 + Math.random() * 40;
+      }
+      update() {
+        this.x += Math.cos(this.angle) * this.speed;
+        this.y += Math.sin(this.angle) * this.speed + 0.5;
+        this.speed *= 0.98;
+        this.life++;
+      }
+      draw(ctx) {
+        ctx.save();
+        ctx.globalAlpha = 0.8 * (1 - this.life / this.maxLife);
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.shadowColor = this.color;
+        ctx.shadowBlur = 32;
+        ctx.fill();
+        ctx.restore();
       }
     }
+
+    class Firework {
+      constructor() {
+        this.x = Math.random() * W * 0.8 + W * 0.1;
+        this.y = H * (0.4 + Math.random() * 0.4);
+        this.color = `hsl(${Math.random()*360},100%,65%)`;
+        this.particles = [];
+        this.imgLife = 0;
+  this.imgMaxLife = 70;
+        this.imgExploded = false;
+        // Seleccionar imagen aleatoria
+        this.img = fwImgs[Math.floor(Math.random() * fwImgs.length)];
+        const numParticles = 80 + Math.random() * 40;
+        for (let i = 0; i < numParticles; i++) {
+          const angle = (Math.PI * 2) * (i / numParticles) + Math.random()*0.08;
+          const speed = Math.random() * 8 + 6;
+          this.particles.push(new Particle(this.x, this.y, this.color, angle, speed));
+        }
+      }
+      update() {
+        if (this.imgLife < this.imgMaxLife) {
+          this.imgLife++;
+        } else {
+          this.imgExploded = true;
+        }
+        if (this.imgExploded) {
+          this.particles.forEach(p => p.update());
+        }
+      }
+      draw(ctx) {
+        // Animar la imagen acercándose y alejándose
+        if (!this.imgExploded) {
+          const progress = this.imgLife / this.imgMaxLife;
+          const scale = 0.7 - 0.5 * progress;
+          const opacity = 1 - progress * 0.7;
+          const imgW = this.img.naturalWidth || 300;
+          const imgH = this.img.naturalHeight || 300;
+          ctx.save();
+          ctx.globalAlpha = opacity;
+          ctx.translate(this.x, this.y);
+          ctx.scale(scale, scale);
+          ctx.drawImage(this.img, -imgW/2, -imgH/2, imgW, imgH);
+          ctx.restore();
+        } else {
+          this.particles.forEach(p => p.draw(ctx));
+        }
+      }
+      isDead() {
+        return this.imgExploded && this.particles.every(p => p.life > p.maxLife);
+      }
+    }
+
+    let fireworks = [];
+    function spawnFirework() {
+      fireworks.push(new Firework());
+    }
+
+    // Animación principal
+    function animate() {
+      ctx.clearRect(0, 0, W, H);
+      fireworks.forEach(fw => {
+        fw.update();
+        fw.draw(ctx);
+      });
+      fireworks = fireworks.filter(fw => !fw.isDead());
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Lanzar fuegos artificiales cada cierto tiempo
+    setInterval(spawnFirework, 900);
+    // Algunos al inicio
+    for (let i = 0; i < 3; i++) spawnFirework();
   </script>
 </body>
 </html>
-
